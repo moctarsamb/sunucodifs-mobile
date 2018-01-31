@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     Text, TextInput, TouchableHighlight,
-    View
+    View,
+    Image
 } from 'react-native';
 import {Button, FormLabel, FormInput} from "react-native-elements";
 import {BackgroundImage} from "../../components/bg";
 import * as db from "../../db" ;
+import {API_URL} from "../../config/api";
+
 export default class Login extends Component<{}> {
     constructor(props){
         super(props);
@@ -21,9 +24,12 @@ export default class Login extends Component<{}> {
     render() {
         return (
             <BackgroundImage>
-                <Text
-                    style={styles.logo}
-                > LOGO </Text>
+                <View style={styles.logo}>
+                    <Image
+                        style={styles.logo}
+                        source={require("../../components/logo_ucad.gif")}
+                    />
+                </View>
                 <View style={styles.container}>
                     <FormLabel>E-Mail</FormLabel>
                     <FormInput
@@ -37,20 +43,6 @@ export default class Login extends Component<{}> {
                         secureTextEntry
                         style={styles.input}
                     />
-                    <Button
-                    backgroundColor="#0066ff"
-                    icon={{name: 'cached'}}
-                    onPress={()=> this.login() }
-                    title='Se Connecter'
-                    style={styles.button}
-                />
-                    <Button
-                        backgroundColor="#ff6600"
-                        icon={{name: 'cached'}}
-                        onPress={()=> this.props.navigation.navigate("SignUp") }
-                        title="S'inscrire"
-                        style={styles.button}
-                    />
 
                     <TouchableHighlight
                         onPress={()=> this.props.navigation.navigate("Recover") }
@@ -58,6 +50,21 @@ export default class Login extends Component<{}> {
                         <Text style={styles.bottomText} >Mot de passe oublié ?</Text>
                     </TouchableHighlight>
                 </View>
+
+                <Button
+                    backgroundColor="#0066ff"
+                    icon={{name: 'cached'}}
+                    onPress={()=> this.login() }
+                    title='Se Connecter'
+                    style={styles.button}
+                />
+                <Button
+                    backgroundColor="#ff6600"
+                    icon={{name: 'cached'}}
+                    onPress={()=> this.props.navigation.navigate("SignUp") }
+                    title="S'inscrire"
+                    style={styles.button}
+                />
                 <View style={styles.bottom} >
                     <Button
                         backgroundColor="#cc00cc"
@@ -71,7 +78,7 @@ export default class Login extends Component<{}> {
         );
     }
     login(){
-         fetch('http://192.168.1.15:3000/api/etudiants/login', {
+         fetch(API_URL + '/etudiants/login', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -84,7 +91,7 @@ export default class Login extends Component<{}> {
         }).then((response) => response.json())
             .then((responseJson) => {
              const tokenId = responseJson.id;
-             fetch('http://192.168.1.15:3000/api/etudiants/'+responseJson.userId).then((response) => response.json()).then(etu=>{
+             fetch(API_URL + '/etudiants/'+responseJson.userId).then((response) => response.json()).then(etu=>{
                     if(etu.error){
                         alert("Mauvaise Combinaison E-Mail/Mot DE Passe")
                     }
@@ -112,10 +119,11 @@ export default class Login extends Component<{}> {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
+        borderRadius: 5,
         margin: 20,
     },
     input: {
-        padding: 20,
+        margin: "auto",
         height: 40,
         color: "#000",
     },
@@ -123,8 +131,15 @@ const styles = StyleSheet.create({
         margin: 20,
         width: "auto"
     },
+    logoView:{
+        width: 150, height: 150,
+        alignItems:"center"
+    },
     logo:{
-        margin: 35
+
+        width: 150, height: 150,
+      display: "flex",
+      margin: "auto"
     },
     bottom:{
         width: "90%",
@@ -135,6 +150,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     bottomText:{
+        textAlign: 'center',
         color: "#203e79"
     }
 });

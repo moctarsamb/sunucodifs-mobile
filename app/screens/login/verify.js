@@ -7,6 +7,7 @@ import {
 import {Button, FormLabel, FormInput} from "react-native-elements";
 import Camera from "react-native-camera"
 import {Loading} from "../../components/loading";
+import {API_URL} from "../../config/api";
 export default class Verify extends Component<{}> {
     constructor(props){
         super(props);
@@ -59,8 +60,8 @@ export default class Verify extends Component<{}> {
         );
     }
     verify(){
-        if(!this.state.loading) return this.setState({loading: true});
-        fetch("http://192.168.1.15:3000/api/etudiants/verifierCode",{
+        if(!this.state.loading)  this.setState({loading: true});
+        fetch(API_URL + "/etudiants/verifierCode",{
             method: 'POST',
                 headers: {
                 Accept: 'application/json',

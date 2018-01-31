@@ -9,6 +9,7 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 
 import {BackgroundImage} from "../../components/bg";
 import {Button, FormLabel, FormInput} from "react-native-elements";
+import {API_URL} from "../../config/api";
 export default class SignUp extends Component<{}> {
     constructor(props){
         super(props);
@@ -29,13 +30,13 @@ export default class SignUp extends Component<{}> {
         }
     }
     componentDidMount(){
-        fetch('http://192.168.1.15:3000/api/departements/')
+        fetch(API_URL + '/departements/')
             .then((response) => response.json())
             .then(bats => {
                 this.setState({bats:bats});
             });
 
-        fetch('http://192.168.1.15:3000/api/niveaus/')
+        fetch(API_URL + '/niveaus/')
             .then((response) => response.json())
             .then(bats => {
                 this.setState({nivs:bats});
@@ -119,8 +120,8 @@ export default class SignUp extends Component<{}> {
             emailVerified: false,
             niveauId: this.state.niveauId,
             departementId:this.state.departementId
-        }
-        fetch("http://192.168.1.15:3000/api/etudiants", {
+        };
+        fetch(API_URL+ "/etudiants", {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -131,7 +132,7 @@ export default class SignUp extends Component<{}> {
             if(!respjson) {
                 alert("NON");
                 return;
-            };
+            }
             alert("Inscription Terminée");
             this.props.navigation.goBack();
         }).catch(error => {

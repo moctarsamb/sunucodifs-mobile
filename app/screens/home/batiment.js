@@ -18,6 +18,7 @@ export default class Batiment extends Component {
         }
     }
     componentDidMount(){
+        if (this.props.navigation.state.params.return) this.props.navigation.goBack();
         fetch(API_URL + "/batiments").then(res => res.json()).then(response => {
             if(response.error){
                 alert("Connexion Impossible avec le serveur");
@@ -53,7 +54,7 @@ export default class Batiment extends Component {
                                     name='building'
                                     type='font-awesome'
                                     color={this.randomColors()}
-                                    onPress={() => this.props.navigation.navigate("")} />
+                                    onPress={() => this.props.navigation.navigate("Codification", {batId: bat.id} )} />
                                 <Text> {bat.nomBatiment} </Text>
                             </TouchableOpacity>
                         )

@@ -8,7 +8,8 @@ export class BackgroundImage extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('./bg.jpeg')}
+            <ImageBackground
+                source={require('./ok.jpg')}
                    style={styles.backgroundImage}>
 
                 {this.props.children}

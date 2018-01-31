@@ -22,9 +22,6 @@ let HomeCard = StackNavigator({
     Batiment: {
         screen: Batiment
     },
-    Codification: {
-        screen: Codification
-    },
     Echange: {
         screen: Echange
     },

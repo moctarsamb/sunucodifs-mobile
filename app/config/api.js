@@ -1,2 +1,4 @@
-const API = "http://192.168.1.15";
-export const API_URL = API + ":3000/api";
+// const API = "http://192.168.1.17";
+// const API = "http://127.0.0.1";
+const API = "http://sunucodifs-api.herokuapp.com";
+export const API_URL = API + "/api";

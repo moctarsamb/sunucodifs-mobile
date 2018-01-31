@@ -10,7 +10,7 @@ export class BackgroundImageHome extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('./bg2.jpeg')}
+            <ImageBackground source={require('./bg2.jpg')}
                              style={styles.backgroundImage}>
 
                 {this.props.children}
